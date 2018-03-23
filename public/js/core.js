@@ -28,3 +28,14 @@ function leaveGame() {
   socketLeaveGame(user.id);
 
 }
+
+function readyUp(roomID2, data) {
+
+  socketReadyUp(roomID2, data);
+
+}
+
+function newReadyUp(newReadyUps) {
+  $('#readyUps').html(newReadyUps+"/2");
+  fadeColor("readyUps", "color", "rgb(66, 244, 125)");
+}

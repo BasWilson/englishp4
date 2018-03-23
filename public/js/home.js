@@ -24,3 +24,6 @@ $('#settingsBtn').click(function () {
 $('#setNameBtn').click(function () {
   setNickname();
 });
+$('#readyBtn').click(function () {
+  readyUp(roomID2);
+});

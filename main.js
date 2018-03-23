@@ -48,6 +48,13 @@ io.on('connection', function(socket){
     que.addPlayerToQue(data, socket);
   });
 
+  /*
+   * Player readies up for a game
+  */
+  socket.on('readyUp', function(roomID, data){
+    //Player gets added to que
+    fb.readyUp(roomID, data, socket);
+  });
 
 });
 http.listen(7000, function(){

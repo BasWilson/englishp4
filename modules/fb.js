@@ -2,14 +2,17 @@ module.exports = {
 
   createRoom: function (data, socket, roomID) {
 
-    var roomOptions = {
+    roomOptions = {
         id: roomID,
         gameMode: data.gameMode,
         status: 0,
         currentPlayers: 1,
         maxPlayers: 2,
         playerOne: data.uid,
-        playerTwo: 0
+        playerTwo: "OPPONENT",
+        nameOne: data.name,
+        nameTwo: 0,
+        ready: 0
       };
 
       db.collection("rooms").doc(roomID).set(roomOptions).then(function() {
@@ -17,8 +20,9 @@ module.exports = {
           openRooms.push(roomID);
 
           //Let the user know he/she joined the room
-          socket.emit('roomJoined', roomID);
+          socket.emit('roomJoined', roomID, roomOptions);
           socket.join(roomID);
+
       });
 
   },
@@ -31,12 +35,13 @@ module.exports = {
 
       //Add playerTwo to the room in the DB
       var roomRef = db.collection('rooms').doc(roomID);
-      var roomOptions = roomRef.set({
-        playerTwo: data.uid
+      var room = roomRef.set({
+        playerTwo: data.uid,
+        nameTwo: data.name
       }, { merge: true });
 
       //Let the user know he/she joined the room
-      socket.emit('roomJoined', roomID);
+      socket.emit('roomJoined', roomID, roomOptions);
       socket.join(roomID);
 
     },
@@ -55,6 +60,33 @@ module.exports = {
 
     },
 
+    readyUp: function (roomID, data, socket) {
+
+      var roomRef = db.collection('rooms').doc(roomID);
+
+      var getDoc = roomRef.get()
+          .then(doc => {
+              if (!doc.exists) {
+                console.log('this no exist ;0');
+              } else {
+
+                  roomData = doc.data();
+                  console.log(roomData.ready);
+                  var readyUps = roomData.ready;
+
+                  readyUps++;
+
+                  //Ready up
+                  var room = roomRef.set({
+                    ready: readyUps
+                  }, { merge: true });
+
+              }
+    })
+
+
+
+    },
 
 };
 
@@ -65,6 +97,7 @@ var path = require('path')
 var io = require('socket.io')(http);
 
 var openRooms = [];
+var roomOptions;
 
 //Modules
 var fb = require('./fb');

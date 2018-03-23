@@ -100,7 +100,7 @@ function setNickname() {
 }
 
 
-function loadLobby(roomID) {
+function loadLobby(roomID, roomOptions) {
   console.log(roomID);
 
   var roomRef = db.collection('rooms').doc(roomID);
@@ -111,8 +111,9 @@ function loadLobby(roomID) {
           } else {
 
               roomData = doc.data();
-              console.log("Data: "+roomData);
-
+              console.log("Data: "+roomOptions);
+              $('#opponentName').html(roomOptions.nameOne);
+              $('#playerName').html(roomOptions.nameTwo);
               loadingView(false);
               lobbyView(true);
 
