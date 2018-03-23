@@ -1,0 +1,114 @@
+<!doctype html>
+
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+
+  <title>Battle</title>
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="1v1 Battle">
+  <meta name="author" content="Bas Wilson and Rohied Shirzai">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" media="screen and (max-width: 600px)" href="css/dashMobile.css">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+
+</head>
+
+<body>
+
+  <div class="splashscreenDiv" id="splashscreenView">
+    <a class="loaderText" id="loaderText">Loading...</a>
+    <img class="pageLoader" src="assets/loader.svg" alt="Laden..">
+    <img class="pageLoader" src="assets/swords.png" alt="Laden..">
+  </div>
+
+  <!-- Dit is het popup venster -->
+  <div class="popupDiv">
+    <a class="cardText marginAll" id="popupText"></a>
+    <a class="cardText button" id="closePopupBtn">Close</a>
+  </div>
+
+  <div class="lobbyContainer" id="lobbyView">
+    <a class="marginAll headerText">1v1 FACE-OFF</a>
+
+  <div class="playersDiv">
+    <div class="whiteCard">
+      <div class="playerCard">
+        <a class="textSmall" id="opponentName">OPPONENT</a>
+      </div>
+    </div>
+    <div class="whiteCard">
+      <div class="playerCard">
+        <a class="textSmall" id="playerName">PLAYER</a>
+      </div>
+    </div>
+  </div>
+  <div class="whiteCard">
+    <a class="button textBig">READY!</a>
+  </div>
+
+
+</div>
+
+
+  <div class="wrapper">
+
+    <header>
+      <div class="headerContainer">
+        <a class="marginAll headerText">MAIN MENU</a>
+        <a class="marginAll" id="welcomeMessage"></a>
+      </div>
+    </header>
+
+    <section>
+
+      <div class="centerContainer" id="menuView">
+
+
+        <!-- Pagina loader, deze fade uit als de data uit de database binnen is -->
+        <img class="loader" src="assets/loader.svg" alt="Laden..">
+
+        <img class="logo" src="assets/swords.png" alt="ZWAARDEN"/>
+
+        <div class="whiteCard" id="navigationBar">
+          <div class="smallCard">
+            <a id="joinSoloGame" class="textSmall">JOIN 1V1</a>
+          </div>
+          <div class="smallCard">
+            <a id="settingsBtn" class="textSmall">SETTINGS</a>
+          </div>
+        </div>
+
+        <div class="whiteCard">
+          <input id="nicknameField" class="textfield" type="text" maxlength="10" placeholder="NICKNAME"/>
+          <a id="setNameBtn" class="button">SET</a>
+        </div>
+    </div>
+
+    <div class="gameContainer">
+
+    </div>
+    </section>
+
+    <footer>
+      <div class="footerDiv">
+        <a class="footerText" >Gemaakt door P*ssy Squad</a>
+        <img class="footerLogo" src="assets/pussy.png" />
+      </div>
+    </footer>
+
+  </div>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase-firestore.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/fb.js"></script>
+  <script src="js/interface.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/socket.js"></script>
+</body>
+</html>

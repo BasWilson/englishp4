@@ -1,0 +1,50 @@
+.footerDiv {
+  display: none;
+}
+
+.loaderText {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20%;
+  font-size: 25px;
+}
+
+.headerContainer {
+  margin: auto;
+  margin-top: 3%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navigationBar {
+  position: fixed;
+  bottom: 20px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  left: auto !important;
+  margin: 10px 10px 0px 10px;
+  flex-direction: row;
+  z-index: 9999;
+}
+
+.dashboardCardDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileCardDivSide {
+  display: none !important;
+}
+
+.centerContainer {
+  margin-bottom: 20%;
+}
+
+.splashscreenDiv {
+  width: 100%;
+  margin: auto;
+}
