@@ -14,28 +14,29 @@ module.exports = {
     rooms[roomID] = {
         turn: 0,
         turnForPlayer: 0,
-        hpLocal: 100,
-        hpOpponent: 100,
-        moveDamage: 20,
+        playerOneHP: 100,
+        playerTwoHP: 100,
         playerOneName: fb.roomOptions[roomID].nameOne,
         playerTwoName: fb.roomOptions[roomID].nameTwo,
         playerOneSocket: fb.roomOptions[roomID].playerOneSocket,
         playerTwoSocket: fb.roomOptions[roomID].playerTwoSocket,
         changeTurn: function () {
-          if (this.turn == 0) {
-            this.turn = 1;
-            this.turnForPlayer = fb.roomOptions[roomID].playerOneSocket;
+          if (rooms[roomID].turn == 0) {
+            rooms[roomID].turn = 1;
+            rooms[roomID].turnForPlayer = fb.roomOptions[roomID].playerOneSocket;
           } else {
-            this.turn = 0;
-            this.turnForPlayer = fb.roomOptions[roomID].playerTwoSocket;
+            rooms[roomID].turn = 0;
+            rooms[roomID].turnForPlayer = fb.roomOptions[roomID].playerTwoSocket;
           }
           io.to(roomID).emit('updateTurn', rooms[roomID]);
         },
-        damageToLocal: function () {
-          this.hpLocal - this.moveDamage;
+        damageToPlayerOne: function (damage) {
+          var newHP = rooms[roomID].playerOneHP - damage;
+          rooms[roomID].playerOneHP = newHP;
         },
-        damageToOpponent: function () {
-          this.hpOpponent - this.moveDamage;
+        damageToPlayerTwo: function (damage) {
+          var newHP = rooms[roomID].playerTwoHP - damage;
+          rooms[roomID].playerTwoHP = newHP;
         },
     };
 
@@ -46,12 +47,27 @@ module.exports = {
   },
 
 
-    setTurn: function (roomID, data, socket, io) {
+    attack: function (roomID, attack, socket, io) {
 
-      if (rooms[roomID].turn == 0) {
+      if (rooms[roomID].turnForPlayer == rooms[roomID].playerOneSocket) {
+
+        //Player one attacks player two
+        rooms[roomID].damageToPlayerTwo(attack);
+
+      } else if (rooms[roomID].turnForPlayer == rooms[roomID].playerTwoSocket) {
+
+        //Player two attacks player one
+        rooms[roomID].damageToPlayerOne(attack);
+
+      } else {
+        //Player probably tried to attack without having permission
       }
 
-      //io.to(roomID).emit('startGame');
+      rooms[roomID].changeTurn();
+      
+      //Let lobby know there has been an attack
+      io.to(roomID).emit('attacked', rooms[roomID], attack);
+
   },
 
 };

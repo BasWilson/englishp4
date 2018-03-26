@@ -27,3 +27,7 @@ $('#setNameBtn').click(function () {
 $('#readyBtn').click(function () {
   readyUp(roomID2);
 });
+
+$('#attackBtn').click(function () {
+  attack();
+});

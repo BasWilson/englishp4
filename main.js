@@ -9,6 +9,7 @@ var randomFloat = require('random-float');
 //Modules
 var fb = require('./modules/fb');
 var que = require('./modules/matchmaking');
+var game = require('./modules/game');
 
 
 //HANDLE PAGES HERE
@@ -55,6 +56,15 @@ io.on('connection', function(socket){
     //Player gets added to que
     console.log(roomID);
     fb.readyUp(roomID, data, socket, io);
+  });
+
+  /*
+   * Player attacks other player
+  */
+  socket.on('attack', function(roomID, attack){
+    //Player gets added to que
+    console.log('Attacked');
+    game.attack(roomID, attack, socket, io);
   });
 
 });

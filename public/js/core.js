@@ -76,7 +76,6 @@ function initializeGame(roomOptions) {
     //In-Game
     $('#localName').html(roomOptions.playerOneName);
     $('#opponentName').html(roomOptions.playerTwoName);
-    setDialoge('WHAT WILL ', roomOptions.playerOneName, ' DO?');
   } else if (myPlayer == 2) {
     //Lobby
     $('#playerNameLobby').html(roomOptions.playerTwoName);
@@ -85,7 +84,49 @@ function initializeGame(roomOptions) {
     //In-Game
     $('#localName').html(roomOptions.playerTwoName);
     $('#opponentName').html(roomOptions.playerOneName);
-    setDialoge('WHAT WILL ', roomOptions.playerTwoName, ' DO?');
+  }
+}
+
+function updateUI(roomOptions) {
+  if (myPlayer == 1) {
+    $('#playerHP').html("HP "+roomOptions.playerOneHP+"/100");
+    $('#opponentHP').html("HP "+roomOptions.playerTwoHP+"/100");
+  } else if (myPlayer == 2) {
+    $('#playerHP').html("HP "+roomOptions.playerTwoHP+"/100");
+    $('#opponentHP').html("HP "+roomOptions.playerOneHP+"/100");
   }
 
+  handleTurn(roomOptions);
 }
+
+function attack(attack) {
+  var roomID = roomID2;
+  attack = 20;
+  socketAttack(roomID, attack);
+}
+
+function handleAttack(roomOptions, attack) {
+
+  if (roomOptions.playerOneHP <= 0 || roomOptions.playerTwoHP <= 0) {
+    setMultilineDialoge(lines = ['The monster has fainted...','Player '+getAttacker(roomOptions)+' has won the battle!', ])
+  } else {
+    socket.emit('attackDone', roomID2);
+  }
+  updateUI(roomOptions);
+  console.log(roomOptions);
+}
+
+function getAttacker(roomOptions, attacker) {
+
+  if (roomOptions.turnForPlayer == roomOptions.playerOneSocket) {
+    attacker = roomOptions.playerOneName;
+  } else if (roomOptions.turnForPlayer == roomOptions.playerOneSocket) {
+    attacker = roomOptions.playerTwoName;
+  }
+  return attacker;
+}
+
+var effectiveDialoge = ["What an attack!", "That was super powerfull!"];
+var faintedDialoge = ["has fainted...", "got knocked out"];
+var wonDialoge = ["has won!", "won that battle!"];
+var trainerDialoge = ["Hey! I'm going to beat your ass today!", "Goodluck, have fun!", "May the best trainer win!", "Do I know you?"];

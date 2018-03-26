@@ -68,6 +68,15 @@ function setDialoge(text, text2, text3) {
   $('#diaologeText').html(text + text2 + text3);
 }
 
+function setMultilineDialoge(linesArray) {
+  //Every line stays 4 seconds
+  for (var i = 0; i < linesArray.length; i++) {
+    setInterval(function () {
+      $('#diaologeText').html(linesArray[i]);
+    },4000)
+  }
+
+}
 
 function hideInteractionMenu(hide) {
   if (hide == true) {

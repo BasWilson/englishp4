@@ -35,6 +35,10 @@ socket.on('updateTurn', function (roomOptions) {
   handleTurn(roomOptions);
 })
 
+socket.on('attacked', function (roomOptions, attack) {
+  handleAttack(roomOptions, attack);
+})
+
 function socketJoinGame(data) {
 
   socket.emit('joinGame', data);
@@ -45,4 +49,8 @@ function socketReadyUp(roomID) {
   console.log(data);
   socket.emit('readyUp', roomID, data);
 
+}
+
+function socketAttack (roomID, attack) {
+  socket.emit('attack', roomID, attack);
 }
