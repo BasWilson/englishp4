@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" media="screen and (max-width: 600px)" href="css/gameMobile.css">
   <link rel="stylesheet" media="screen and (max-width: 600px)" href="css/dashMobile.css">
   <link rel="icon" href="assets/favicon.png" type="image/png">
 
@@ -85,7 +86,7 @@
     </div>
 
     <div class="interactionMenu">
-      <div class="monsterCardBg marginRight">
+      <div class="monsterCardBg">
         <div class="monsterCardSmall">
           <a class="textSmall" id="diaologeText">WHAT WILL PLAYER DO?</a>
         </div>
@@ -120,7 +121,6 @@
 
       <div class="centerContainer" id="menuView">
 
-
         <!-- Pagina loader, deze fade uit als de data uit de database binnen is -->
         <img class="loader" src="assets/loader.svg" alt="Laden..">
 
@@ -139,6 +139,7 @@
           <input id="nicknameField" class="textfield" type="text" maxlength="10" placeholder="NICKNAME"/>
           <a id="setNameBtn" class="button">SET</a>
         </div>
+        <a class="textSmall" id="onlinePlayers"></a>
     </div>
 
     <div class="gameContainer">

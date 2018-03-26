@@ -12,6 +12,8 @@ var que = require('./modules/matchmaking');
 var game = require('./modules/game');
 
 
+var onlinePlayers = 0;
+
 //HANDLE PAGES HERE
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -32,11 +34,14 @@ res.sendFile(__dirname + '/views/register.htm');
 //SOCKET CONNECTIONS
 io.on('connection', function(socket){
 
-//Handle sockets from here
+    onlinePlayers++;
+    io.emit('onlinePlayers', onlinePlayers);
     console.log('Player connected');
 
   socket.on('disconnect', function(){
 
+    onlinePlayers--;
+    io.emit('onlinePlayers', onlinePlayers);
     console.log('Player disconnected');
 
   });
@@ -53,8 +58,7 @@ io.on('connection', function(socket){
    * Player readies up for a game
   */
   socket.on('readyUp', function(roomID, data){
-    //Player gets added to que
-    console.log(roomID);
+    console.log("Ready");
     fb.readyUp(roomID, data, socket, io);
   });
 
@@ -62,7 +66,6 @@ io.on('connection', function(socket){
    * Player attacks other player
   */
   socket.on('attack', function(roomID, attack){
-    //Player gets added to que
     console.log('Attacked');
     game.attack(roomID, attack, socket, io);
   });

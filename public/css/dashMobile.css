@@ -18,33 +18,58 @@
   align-items: center;
 }
 
-.navigationBar {
-  position: fixed;
-  bottom: 20px;
+.logo {
+  width: 70%;
+  height: auto;
+}
+
+.whiteCard {
+  padding: 10px;
   background-color: white;
   border-radius: 10px;
+  display: flex;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: auto !important;
+}
+
+.smallCard {
   padding: 10px;
-  display: flex;
-  left: auto !important;
-  margin: 10px 10px 0px 10px;
-  flex-direction: row;
-  z-index: 9999;
-}
-
-.dashboardCardDiv {
-  display: flex;
-  flex-direction: column;
-}
-
-.profileCardDivSide {
-  display: none !important;
+  background-color: rgb(244, 66, 66);
+  border-radius: 10px;
+  margin: 5px;
+  font-weight: bold;
+  transition: all 0.15s ease;
 }
 
 .centerContainer {
-  margin-bottom: 20%;
+  width: auto;
 }
 
 .splashscreenDiv {
   width: 100%;
   margin: auto;
+}
+
+.lobbyContainer {
+  width: 80%;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  display: none;
+}
+
+.playersDiv {
+  height: 100%;
+  flex-direction: column !important ;
+}
+
+.playerCard {
+  width: 200px;
+  height: 60px;
 }

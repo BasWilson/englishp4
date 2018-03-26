@@ -13,7 +13,25 @@
 }
 
 
-.dashboardCardDiv {
+.whiteCard {
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.smallCard {
+  padding: 10px;
+  background-color: rgb(244, 66, 66);
+  border-radius: 10px;
+  position: relative;
+  width: auto;
+  height: auto;
+  margin: auto;
+  font-weight: bold;
+  transition: all 0.15s ease;
 }

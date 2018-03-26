@@ -85,3 +85,8 @@ function hideInteractionMenu(hide) {
     $('#interactionMenu').show();
   }
 }
+
+
+function onlinePlayers(players) {
+  $('#onlinePlayers').html("Online players: <strong>"+players+"</strong>");
+}

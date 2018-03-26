@@ -1,56 +1,68 @@
 var socket = io();
 var roomID2;
-/*
- * HANDLE Game interactions here
-*/
-socket.on('roomJoined', function (roomID, roomOptions) {
 
+
+//The server is now sending all game data to the client
+socket.on('onlinePlayers', function (players) {
+  onlinePlayers(players);
+});
+
+
+//The server has told the user he/she joined a room
+socket.on('roomJoined', function (roomID, roomOptions) {
   loadLobby(roomID, roomOptions);
   roomID2 = roomID;
   inLobby = true;
-
 });
-socket.on('startGame', function (roomOptions) {
 
+//The server tells the user the game is going to start, we show the loading screen
+socket.on('startGame', function (roomOptions) {
   loadingView(true);
   updateRoom(roomOptions);
-  //preload all assets here
 });
 
-socket.on('initializeGame', function (roomOptions) {
-
-  initializeGame(roomOptions);
-
-});
+//The game view loads in
 socket.on('gameStarted', function () {
-  //game has been started in  the database, players can now start to play
-
   loadingView(false);
   lobbyView(false);
   gameView(true);
-
 });
 
-socket.on('updateTurn', function (roomOptions) {
-  handleTurn(roomOptions);
-})
+//The server is now sending all game data to the client
+socket.on('initializeGame', function (roomOptions) {
+  initializeGame(roomOptions);
+});
 
+
+/*
+* PREGAME
+*/
+
+//Tell the server the player wants to join a game
+function socketJoinGame(data) {
+  socket.emit('joinGame', data);
+}
+
+//Tell the server the player is ready
+function socketReadyUp(roomID) {
+  socket.emit('readyUp', roomID, data);
+}
+
+/*
+* INGAME
+*/
+
+//Tell the server an attack is coming
+function socketAttack (roomID, attack) {
+  socket.emit('attack', roomID, attack);
+}
+
+//Show that someone attacked
 socket.on('attacked', function (roomOptions, attack) {
   handleAttack(roomOptions, attack);
 })
 
-function socketJoinGame(data) {
-
-  socket.emit('joinGame', data);
-
-}
-
-function socketReadyUp(roomID) {
-  console.log(data);
-  socket.emit('readyUp', roomID, data);
-
-}
-
-function socketAttack (roomID, attack) {
-  socket.emit('attack', roomID, attack);
-}
+//This lets the client know who's turn it is
+socket.on('updateTurn', function (roomOptions) {
+  handleTurn(roomOptions);
+})
