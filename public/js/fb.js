@@ -12,7 +12,12 @@ $( document ).ready(function() {
 
   $(document).keypress(function(e) {
     if(e.which == 13) {
-        login();
+        if (window.location.pathname == "/login") {
+          //Stay
+          login();
+        } else {
+          setNickname();
+        }
     }
   });
 
@@ -47,7 +52,11 @@ function checkIfSignedIn() {
 
   } else {
     // Er is niemand ingelogd
-    //window.location.href = "/login";
+    if (window.location.pathname == "/login") {
+      //Stay
+    } else {
+      window.location.href = "/login";
+    }
   }
 });
 }
