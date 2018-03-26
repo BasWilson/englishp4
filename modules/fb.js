@@ -1,8 +1,8 @@
 module.exports = {
 
-  createRoom: function (data, socket, roomID) {
+  createRoom: function (data, socket, roomID, io) {
 
-    roomOptions = {
+    roomOptions[roomID] = {
         id: roomID,
         gameMode: data.gameMode,
         status: 0,
@@ -10,19 +10,20 @@ module.exports = {
         maxPlayers: 2,
         playerOne: data.uid,
         playerTwo: "OPPONENT",
+        playerOneSocket: socket.id,
+        playerTwoSocket: "OPPONENT SOCKET",
         nameOne: data.name,
         nameTwo: 0,
         ready: 0
       };
 
-      db.collection("rooms").doc(roomID).set(roomOptions).then(function() {
+      db.collection("rooms").doc(roomID).set(roomOptions[roomID]).then(function() {
           console.log('Room '+roomID+' Created');
           openRooms.push(roomID);
 
           //Let the user know he/she joined the room
-          socket.emit('roomJoined', roomID, roomOptions);
+          socket.emit('roomJoined', roomID, roomOptions[roomID]);
           socket.join(roomID);
-
       });
 
   },
@@ -33,34 +34,81 @@ module.exports = {
       tools.removeFromArray(openRooms, roomID);
       console.log('Joined room: '+roomID);
 
-      //Add playerTwo to the room in the DB
+      //Add playerTwo to the room in the DB and Local variable
+      roomOptions[roomID].playerTwo = data.uid;
+      roomOptions[roomID].playerTwoSocket = socket.id;
+      roomOptions[roomID].nameTwo = data.name;
+
+
       var roomRef = db.collection('rooms').doc(roomID);
       var room = roomRef.set({
         playerTwo: data.uid,
+        playerTwoSocket: socket.id,
         nameTwo: data.name
       }, { merge: true });
 
       //Let the user know he/she joined the room
-      socket.emit('roomJoined', roomID, roomOptions);
+      socket.emit('roomJoined', roomID, roomOptions[roomID]);
       socket.join(roomID);
 
     },
 
     findRoom: function (data, socket, roomID) {
 
+      console.log('Player is searching for a match');
       //If there are no rooms we create one
       if (openRooms == "") {
         que.createRoom(data, socket, roomID);
-
-      } else {
+        console.log('No rooms found, creating a new one.');
+      } else if (openRooms.length > 0) {
         //If there are rooms, we join the first one in the array
         roomID = openRooms[0];
-        fb.joinRoom(data, socket, roomID);
+        console.log('Room found, joining room: ' + roomID);
+        this.joinRoom(data, socket, roomID);
       }
 
     },
 
-    readyUp: function (roomID, data, socket) {
+    readyUp: function (roomID, data, socket, io) {
+
+      var roomRef = db.collection('rooms').doc(roomID);
+      var getDoc = roomRef.get()
+          .then(doc => {
+              if (!doc.exists) {
+                console.log('this no exist ;0');
+              } else {
+
+                  roomData = doc.data();
+                  var readyUps = roomData.ready;
+
+                  if (readyUps >= 2) {
+                    //
+                  } else {
+                    readyUps++;
+                  }
+                  if (readyUps == 2) {
+                    this.exportVariables();
+
+                    var room = roomRef.set({
+                      ready: readyUps
+                    }, { merge: true });
+                    game.startGame(roomID, data, socket, io);
+                    tools.removeFromArray(openRooms, roomID);
+                  } else {
+                    //Ready up
+                    var room = roomRef.set({
+                      ready: readyUps
+                    }, { merge: true });
+
+                  }
+              }
+    })
+
+
+
+    },
+
+    setGameStatus: function (roomID, data, socket, io) {
 
       var roomRef = db.collection('rooms').doc(roomID);
 
@@ -71,22 +119,25 @@ module.exports = {
               } else {
 
                   roomData = doc.data();
-                  console.log(roomData.ready);
-                  var readyUps = roomData.ready;
 
-                  readyUps++;
+                  var status = 1;
 
-                  //Ready up
                   var room = roomRef.set({
-                    ready: readyUps
+                    status: status
                   }, { merge: true });
-
+                  io.to(roomID).emit('gameStarted');
+                  activeGames.push(roomID); // add to the active games to handle the game.
               }
     })
 
 
 
     },
+
+    exportVariables : function () {
+      module.exports.roomOptions = roomOptions;
+    },
+
 
 };
 
@@ -97,12 +148,15 @@ var path = require('path')
 var io = require('socket.io')(http);
 
 var openRooms = [];
-var roomOptions;
+
+var activeGames = [];
+var roomOptions = {};
 
 //Modules
 var fb = require('./fb');
 var que = require('./matchmaking');
 var tools = require('./tools');
+var game = require('./game');
 
 //ADMIN
 var admin = require('firebase-admin');

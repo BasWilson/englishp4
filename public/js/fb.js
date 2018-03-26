@@ -1,4 +1,5 @@
 var user;
+var inLobby = false;
 
 firebase.initializeApp({
   apiKey: 'AIzaSyAKyV2xGVUznMORbq6jJBn_lCkspPAwidk',
@@ -20,7 +21,15 @@ $( document ).ready(function() {
     checkIfSignedIn();
   },600)
 
-  //switchPage('mainmenu');
+  setInterval(function() {
+    if (inLobby == true) {
+      db.collection("rooms").doc(roomID2)
+      .onSnapshot(function(doc) {
+          var readyPlayers = doc.data().ready;
+          newReadyUp(readyPlayers);
+      });
+    }
+  },1000)
 
 });
 
@@ -112,8 +121,7 @@ function loadLobby(roomID, roomOptions) {
 
               roomData = doc.data();
               console.log("Data: "+roomOptions);
-              $('#opponentName').html(roomOptions.nameOne);
-              $('#playerName').html(roomOptions.nameTwo);
+
               loadingView(false);
               lobbyView(true);
 

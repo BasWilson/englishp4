@@ -1,17 +1,17 @@
 module.exports = {
 
-  addPlayerToQue: function (data, socket, roomID) {
+  addPlayerToQue: function (data, socket, roomID, io) {
 
-    fb.findRoom(data, socket, roomID);
+    fb.findRoom(data, socket, roomID, io);
 },
 
-  createRoom: function (data, socket, roomID) {
+  createRoom: function (data, socket, roomID, io) {
 
     var random = Math.floor((Math.random() * 9999999) + 0);
 
     roomID = random.toString();
 
-    fb.createRoom(data, socket, roomID);
+    fb.createRoom(data, socket, roomID, io);
 },
 
 };

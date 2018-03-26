@@ -1,0 +1,130 @@
+.localDiv {
+  position: absolute;
+  bottom: 220px;
+  right: 20px;
+}
+
+.opponentDiv {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.playerName {
+  text-align: left;
+}
+
+.monsterCardBg {
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.monsterCard {
+  padding: 10px;
+  background-color: rgb(244, 66, 66);
+  border-radius: 10px;
+  position: relative;
+  width: 300px;
+  height: auto;
+  margin: 10px;
+  font-weight: bold;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.levelText {
+  position:absolute;
+  right: 10px;
+  top:10px;
+}
+.monsterCardSmall {
+  padding: 10px;
+  background-color: rgb(244, 66, 66);
+  border-radius: 10px;
+  position: relative;
+  width: auto;
+  height: auto;
+  margin: 10px;
+  font-weight: bold;
+  transition: all 0.15s ease;
+}
+
+.monsterCardSmall:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.gameContainer {
+  width: 1200px;
+  height: 600px;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  display: none;
+  margin-top: 40px;
+}
+
+.platform {
+  width: 350px;
+  height: 40px;
+  -webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.75);
+  box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.75);
+  background-color: white;
+  border-radius: 100px;
+}
+
+.opponentPlatform {
+  position: absolute;
+  right: 20px;
+  bottom: 350px;
+}
+
+.localPlatform {
+  position: absolute;
+  left: 20px;
+  bottom: 134px;
+}
+
+.interactionMenu {
+  position: absolute;
+  left: 20px !important;
+  bottom: 20px !important;
+  font-weight: bold;
+  transition: all 0.15s ease;
+  text-align: left;
+  display: flex;
+  flex-direction:row;
+}
+
+.monsterLocal {
+  position: absolute;
+  bottom: 10px;
+  right: 60px;
+  margin: auto;
+  -webkit-filter: drop-shadow(0px 2px 5px #222);
+  filter: drop-shadow(0px 2px 5px #222);
+  width: 120px;
+  height: auto;
+}
+
+
+.monsterOpponent {
+  position: absolute;
+  bottom: 10px;
+  left: 60px;
+  margin: auto;
+  -webkit-filter: drop-shadow(0px 2px 5px #222);
+  filter: drop-shadow(0px 2px 5px #222);
+  width: 120px;
+  height: auto;
+}

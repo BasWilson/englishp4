@@ -11,6 +11,7 @@
   <meta name="author" content="Bas Wilson and Rohied Shirzai">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/game.css">
   <link rel="stylesheet" media="screen and (max-width: 600px)" href="css/dashMobile.css">
   <link rel="icon" href="assets/favicon.png" type="image/png">
 
@@ -21,7 +22,6 @@
   <div class="splashscreenDiv" id="splashscreenView">
     <a class="loaderText" id="loaderText">Loading...</a>
     <img class="pageLoader" src="assets/loader.svg" alt="Laden..">
-    <img class="pageLoader" src="assets/swords.png" alt="Laden..">
   </div>
 
   <!-- Dit is het popup venster -->
@@ -36,13 +36,13 @@
   <div class="playersDiv">
     <div class="whiteCard">
       <div class="playerCard">
-        <a class="textSmall" id="opponentName">OPPONENT</a>
+        <a class="textSmall" id="opponentNameLobby">OPPONENT</a>
       </div>
     </div>
     <a class="marginAll headerText">VS</a>
     <div class="whiteCard">
       <div class="playerCard">
-        <a class="textSmall" id="playerName">PLAYER</a>
+        <a class="textSmall" id="playerNameLobby">PLAYER</a>
       </div>
     </div>
   </div>
@@ -50,9 +50,61 @@
   <div class="whiteCard">
     <a class="button textBig" id="readyBtn">READY!</a>
   </div>
-
-
 </div>
+
+<div class="gameWrapper">
+  <div class="gameContainer" id="gameView">
+
+    <div class="opponentDiv">
+      <div class="monsterCardBg">
+        <div class="monsterCard">
+          <a class="playerName" id="opponentName">OPPONENT</a><br />
+          <a class="playerName" id="opponentHP">HP: 100/100</a>
+          <a class="levelText" id="opponentLevel">lv 1</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="localDiv">
+      <div class="monsterCardBg">
+        <div class="monsterCard">
+          <a class="playerName" id="localName">PLAYER</a><br />
+          <a class="playerName" id="playerHP">HP: 100/100</a>
+          <a class="levelText" id="playerLevel">lv 1</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="platform opponentPlatform" id="opponentPlatform">
+      <img class="monsterOpponent" src="assets/r2.png"/>
+    </div>
+    <div class="platform localPlatform" id="localPlatform">
+      <img class="monsterLocal" src="assets/r2.png"/>
+    </div>
+
+    <div class="interactionMenu">
+      <div class="monsterCardBg marginRight">
+        <div class="monsterCardSmall">
+          <a class="textSmall" id="diaologeText">WHAT WILL PLAYER DO?</a>
+        </div>
+      </div>
+      <div class="monsterCardBg" id="interactionMenu">
+        <div class="monsterCardSmall">
+          <a id="attackBtn" class="textSmall">ATTACK</a>
+        </div>
+        <div class="monsterCardSmall">
+          <a id="tunBtn" class="textSmall">RUN</a>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
 
 
   <div class="wrapper">

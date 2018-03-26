@@ -57,18 +57,7 @@ body {
   display: none;
 }
 
-.gameContainer {
-  width: 80%;
-  height: 80%;
-  padding-bottom: 10%;
-  margin: auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  display: none;
-}
+
 
 .headerContainer {
   margin: auto;
@@ -80,7 +69,7 @@ body {
 }
 
 .logo {
-  width: 25%;
+  width: 15%;
   height: auto;
   margin-bottom: 5%;
 }
@@ -93,7 +82,9 @@ body {
   margin: 20px;
 }
 
-
+.marginRight {
+  margin-right: 20px !important;
+}
 
 footer {
   color: black;

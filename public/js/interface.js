@@ -29,6 +29,17 @@ function lobbyView(show) {
   }
 }
 
+function gameView(show) {
+  if (show == true) {
+    hideMenu(true);
+    $('#gameView').css('display', 'flex');
+    $('#gameView').css('flex-direction', 'column');
+    $('#gameView').show(500);
+  } else {
+    hideMenu(false);
+    $('#gameView').hide(500);
+  }
+}
 function hideMenu(wrapper) {
 
   if (wrapper == true) {
@@ -51,4 +62,17 @@ function popup(show, pText) {
     $('.popupDiv').hide(200);
   }
 
+}
+
+function setDialoge(text, text2, text3) {
+  $('#diaologeText').html(text + text2 + text3);
+}
+
+
+function hideInteractionMenu(hide) {
+  if (hide == true) {
+    $('#interactionMenu').hide();
+  } else {
+    $('#interactionMenu').show();
+  }
 }

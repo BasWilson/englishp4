@@ -45,7 +45,7 @@ io.on('connection', function(socket){
   */
   socket.on('joinGame', function(data){
     //Player gets added to que
-    que.addPlayerToQue(data, socket);
+    que.addPlayerToQue(data, socket, io);
   });
 
   /*
@@ -53,7 +53,8 @@ io.on('connection', function(socket){
   */
   socket.on('readyUp', function(roomID, data){
     //Player gets added to que
-    fb.readyUp(roomID, data, socket);
+    console.log(roomID);
+    fb.readyUp(roomID, data, socket, io);
   });
 
 });
